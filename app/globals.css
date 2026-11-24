@@ -1,0 +1,406 @@
+@import 'tailwindcss';
+
+:root {
+  color-scheme: light;
+  --bg: #f2f2fa;
+  --panel: #fff;
+  --ink: #16243c;
+  --muted: #50647c;
+  --line: #cedae7;
+  --empty: #e6ecf2;
+  --action: #184b89;
+  --block: #0072FF;
+  --accent: #00AA13;
+  --clear-dot: #fff;
+  --soft: #edf5fc;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #17151f;
+  --panel: #23212d;
+  --ink: #eef6ff;
+  --muted: #afbed1;
+  --line: #3b4658;
+  --empty: #303948;
+  --action: #225892;
+  --block: #0072FF;
+  --accent: #00AA13;
+  --clear-dot: #142438;
+  --soft: #233346;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font:
+    15px/1.5 Arial,
+    Helvetica,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  width: 100%;
+  min-height: 100dvh;
+  padding: 0 clamp(14px, 3vw, 60px) 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+header,
+.brand,
+.settings,
+.settings button,
+footer,
+footer button {
+  display: flex;
+  align-items: center;
+}
+
+header {
+  min-height: 60px;
+  gap: 10px;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.8px;
+  gap: 9px;
+}
+
+.brand svg {
+  color: var(--block);
+  width: 24px;
+}
+
+.settings {
+  gap: 6px;
+}
+
+.settings button,
+.language select,
+footer button {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 8px;
+  min-height: 40px;
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.settings button,
+footer button {
+  gap: 7px;
+  justify-content: center;
+}
+
+.language {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.language select {
+  appearance: none;
+  color: var(--ink);
+  padding-inline: 32px 24px;
+  width: 80px;
+  min-height: 36px;
+  border-radius: 99px;
+  background: var(--soft);
+  letter-spacing: 0.05em;
+}
+
+.language select:hover {
+  border-color: var(--muted);
+}
+
+.language svg {
+  position: absolute;
+  pointer-events: none;
+  width: 15px;
+  left: 11px;
+}
+
+.language svg:last-child {
+  left: auto;
+  right: 8px;
+}
+
+svg {
+  width: 16px;
+  height: auto;
+}
+
+.intro {
+  margin: clamp(16px, 3vh, 36px) 0;
+}
+
+h1 {
+  font-size: clamp(25px, 3.1vw, 48px);
+  font-weight: 750;
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+}
+
+.intro p,
+.card p,
+.results p,
+small {
+  color: var(--muted);
+}
+
+.intro p,
+.card p {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.workspace,
+.steps,
+.pieces {
+  display: grid;
+  gap: clamp(12px, 1.5vw, 30px);
+}
+
+.workspace {
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  flex: 1;
+}
+
+.card,
+.results {
+  min-width: 0;
+  padding: clamp(16px, 2vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  font-size: clamp(20px, 1.6vw, 27px);
+  line-height: 1.3;
+  font-weight: 720;
+  letter-spacing: -0.035em;
+}
+
+.board-stage {
+  display: grid;
+  place-items: center;
+  flex: 1;
+  padding: 14px 0;
+}
+
+.board {
+  width: min(100%, clamp(230px, calc(100dvh - 335px), 660px));
+}
+
+.drawing-grid,
+.diagram {
+  display: grid;
+  aspect-ratio: 1;
+  gap: 3px;
+  grid-template: repeat(var(--n, 8), 1fr) / repeat(var(--n, 8), 1fr);
+}
+
+.drawing-grid {
+  touch-action: none;
+  user-select: none;
+}
+
+.drawing-grid button,
+.diagram i {
+  min-width: 0;
+  min-height: 0;
+  border: 0;
+  border-radius: 3px;
+  background: var(--empty);
+}
+
+.drawing-grid button {
+  cursor: crosshair;
+}
+
+.drawing-grid .filled,
+.diagram .occupied {
+  background: var(--block);
+}
+
+.mini .filled,
+.diagram .added {
+  background: var(--accent);
+}
+
+.filled,
+.diagram .occupied,
+.diagram .added {
+  box-shadow:
+    inset 0 1px 0 #ffffff2b,
+    inset 0 -1px 0 #12243924;
+}
+
+.diagram .cleared {
+  display: grid;
+  place-items: center;
+}
+
+.diagram .cleared::after {
+  content: '';
+  width: clamp(5px, 24%, 10px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--clear-dot);
+}
+
+.pieces,
+.steps {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.pieces {
+  flex: 1;
+  align-items: center;
+  padding: 20px 0;
+}
+
+h3 {
+  font-size: 13px;
+  font-weight: 650;
+  margin-bottom: 8px;
+}
+
+footer {
+  justify-content: space-between;
+  gap: 8px;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+footer .primary {
+  color: white;
+  background: var(--action);
+  border-color: transparent;
+}
+
+button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+button:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--block);
+  outline-offset: 2px;
+}
+
+.settings .theme-switch {
+  position: relative;
+  isolation: isolate;
+  justify-content: space-around;
+  gap: 0;
+  width: 66px;
+  min-height: 36px;
+  padding: 0 2px;
+  border-radius: 99px;
+  background: var(--soft);
+  color: var(--muted);
+}
+
+.theme-switch::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  bottom: 3px;
+  width: 28px;
+  border-radius: 50%;
+  background: var(--block);
+  z-index: -1;
+}
+
+.theme-switch[aria-checked='true']::before {
+  transform: translateX(30px);
+}
+
+.theme-switch[aria-checked='false'] svg:first-child {
+  color: #fff;
+}
+
+.theme-switch[aria-checked='true'] svg:last-child {
+  color: #14223a;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .theme-switch::before {
+    transition: transform 0.16s ease;
+  }
+}
+
+.results {
+  margin-top: 18px;
+  scroll-margin-top: 16px;
+}
+
+.steps:not(:empty),
+.notice {
+  margin-top: 16px;
+}
+
+.notice {
+  background: var(--soft);
+  border-radius: 8px;
+  padding: 14px;
+}
+
+figcaption {
+  margin-bottom: 10px;
+}
+
+figcaption small {
+  display: block;
+}
+
+@media (max-width: 700px) {
+
+  .workspace,
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .board {
+    width: min(100%, 360px);
+  }
+
+  .diagram {
+    max-width: 360px;
+  }
+
+  .pieces {
+    gap: 8px;
+  }
+
+  .mini {
+    gap: 2px;
+  }
+
+  header {
+    flex-wrap: wrap;
+    padding: 8px 0;
+  }
+}
