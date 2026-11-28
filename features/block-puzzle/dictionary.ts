@@ -1,5 +1,5 @@
 const id = {
-  title: 'Block Blast Placement',
+  title: '',
   intro: 'Gambar papan dan blok, lalu temukan urutan penempatannya.',
   language: 'Bahasa',
   indonesian: 'Bahasa Indonesia',
@@ -31,7 +31,7 @@ export type Language = 'id' | 'en'
 export const dictionary: Record<Language, Dictionary> = {
   id,
   en: {
-    title: 'Block Blast Placement',
+    title: '',
     intro: 'Draw your board and blocks, then find their placement',
     language: 'Language',
     indonesian: 'Indonesian',
