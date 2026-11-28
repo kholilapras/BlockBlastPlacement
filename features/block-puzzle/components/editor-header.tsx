@@ -20,7 +20,7 @@ export function EditorHeader({ text, language, onLanguageChange }: Props) {
     <header>
       <div className="brand">
         <Grid2X2 aria-hidden="true" />
-        Block Blast Placement
+        Block Blast Smart
       </div>
       <div className="settings">
         <label className="language">
